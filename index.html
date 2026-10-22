@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>My Upskill player</title>
+<style>
+html,body{margin:0;height:100%;background:#000;color:#fff;font:600 15px -apple-system,system-ui,sans-serif}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0}
+p{position:fixed;inset:0;margin:auto;height:1.5em;text-align:center}
+</style>
+</head>
+<body>
+<script>
+// My Upskill video player: plays one YouTube video, e.g. ?v=VIDEO_ID (add &loop=1 to repeat).
+// It lives on a web address, so YouTube allows its player here (it refuses pages opened from files).
+var q = new URLSearchParams(location.search);
+var v = (q.get("v") || "").replace(/[^\w-]/g, "").slice(0, 11);
+if (v.length === 11) {
+  var f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + v + "?playsinline=1&autoplay=1&rel=0&modestbranding=1" +
+          (q.get("loop") ? "&loop=1&playlist=" + v : "");
+  f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+  f.allowFullscreen = true;
+  f.referrerPolicy = "strict-origin-when-cross-origin";
+  document.body.appendChild(f);
+} else {
+  document.body.innerHTML = "<p>My Upskill player is working ✓</p>";
+}
+</script>
+</body>
+</html>
